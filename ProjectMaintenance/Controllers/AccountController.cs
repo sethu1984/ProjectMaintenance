@@ -209,7 +209,7 @@ namespace ProjectMaintenance.Controllers
             string actionName = ControllerContext.RouteData.GetRequiredString("action");
             if (Request.QueryString["content"] != null)
             {
-                ViewBag.FormAction = "Json" + actionName;
+                ViewBag.FormAction = "Json " + actionName;
                 return PartialView();
             }
             else
