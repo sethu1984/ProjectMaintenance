@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Menu>
+  <MenuItem Name="Home" ID="Home" Title="Home">
+
+  </MenuItem>
+  <MenuItem Name="Project" ID="Project" Title="Project">
+    <MenuItem Name="Create_Project" ID="Create_Project" Titile="Create Project"/>
+    <MenuItem Name="List_Project" ID="Create_Project" Titile="Create Project"/>
+  </MenuItem>
+  <MenuItem Name="User" ID="User" Title="User">
+
+  </MenuItem>
+  <MenuItem Name="Master" ID="Master" Title="Master">
+
+  </MenuItem>
+  <MenuItem Name="Report" ID="Report" Title="Report">
+
+  </MenuItem>
+  <MenuItem Name="Wiki" ID="Wiki" Title="Wiki">
+
+  </MenuItem>
+</Menu>
