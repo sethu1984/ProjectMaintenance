@@ -1,54 +1,268 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
-        <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" rel="stylesheet" type="text/css" />
-        <script src="@Url.Content("~/Scripts/jquery-1.6.2.min.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/modernizr-2.0.6-development-only.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Scripts/AjaxLogin.js")" type="text/javascript"></script>
-        <meta name="viewport" content="width=device-width">
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("your logo here.", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LogOnPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - PMS</title>
+    <style>
+        
+        /*#region Common */
+
+        .leftAlign{
+            float:left;
+        }
+        .rightAlign{
+            float:right;
+        }
+
+        /*#endregion */
+
+        /*#region Header */
+
+        /*Apply to Fixed Header DIV*/
+        #divAboveHeader, #divHeaderRegion {
+            background-color: lightgray;
+            margin: 5px;
+            position: fixed;
+            width: 99%;
+            z-index: 1000;
+            box-shadow: 0 5px 5px #888888;
+        }
+
+        /*Apply to Company Logo (Image)*/
+        #tdCompLogoContainer {
+            width: 15%;
+        }
+       
+        /*#endregion */
+
+        /*#region Menu */
+
+        /*Apply to all Unorder List (ul) placed in menuContainer*/
+        #sideMenuContainer ul, #menuContainer ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        /*Apply to all anchor (</a>) used in menucontainer */
+
+        #sideMenuContainer a, #menuContainer a {
+            text-decoration: none;
+            display: block;
+        }
+
+        /*Apply to all li (Main & Sub menu) located in menuContainer*/
+        #sideMenuContainer li, #menuContainer li {
+            color: black;
+            border-width: 1px;
+            border-style: solid;
+            height: 20px;
+            width: 100px;
+            text-align: center;
+            background-color: lightgray;
+            list-style-type: none;
+            float: left;
+            line-height: 20px;
+        }
+
+        /*Apply to main menu text*/
+        .mainMenuContainer div {
+            background-color: gray;
+            color: white;
+        }
+
+        /*Apply to main menu text*/
+        .subMenuContainer a {
+            color: black;
+        }
+
+        /*Apply to sub menu container*/
+        #sideMenuContainer .subMenuContainer, #menuContainer .subMenuContainer {
+            display: none;
+            margin-left: -1px;
+        }
+
+        /* Show sub menu when hover on main menu*/
+        #sideMenuContainer .mainMenuContainer:hover .subMenuContainer,
+        #menuContainer .mainMenuContainer:hover .subMenuContainer {
+            display: block;
+        }
+
+        #sideMenuContainer {
+            z-index: -1;
+            width: 10%;
+            margin-left: 5px;
+            height: 88%;
+            position: fixed;
+            background-color: darkgray;
+            top: 55px;
+            box-shadow: 5px 0 5px #888888;
+        }
+
+            #sideMenuContainer li {
+                height: auto;
+                float: none;
+                width: auto;
+            }
+        /*#endregion */    
+
+        /*#region Body*/
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 12px;
+            margin-left: 0px;
+            margin-top: 0px;
+        }
+
+        #divRightRegion {
+            position: fixed;
+            float: right;
+            width: 15%;
+            top: 60px;
+            height: 88%;
+            right: 8px;
+            background-color: darkgray;
+        }
+        /*#endregion */
+
+        /*#region Footer */
+        #footerRegion {
+            vertical-align: bottom;
+            position: fixed;
+            background-color: lightgray;
+            width: 99%;
+            bottom: 5px;
+            margin-left: 5px;
+        }
+
+        .smallImage {
+            width: 18px;
+            height: 18px;
+            margin: 0px 0px 0px 0px;
+        }
+        /*#endregion */
+
+    </style>
+</head>
+
+<body>
+    <div style="height: 5px; margin-top: 0; background-color: white" id="divAboveHeader"></div>
+    <header>
+        <div id="divHeaderRegion">
+            <table border="0" style="width: 100%">
+                <tr>
+                    <td rowspan="2" id="tdCompLogoContainer">
+                        <img src="../Images/HeaderImages/CompanyLogo.png" alt="Company Logo" style="position: static; width: 100px; height: 60px" />
+                        <div style="background-color: white; margin-top: -20px;" />
+                    </td>
+                    <td class="topAlign">
+                        <nav style="vertical-align: top">
+                            <div id="divMyAccountPanel" class="rightAlign topAlign">
+                                <a href="#">Forum</a>
+                                <a href="#">Blog</a>
+                                <a href="#">FAQ</a>
+                                <a href="#">My Account</a>
+                                <a href="/">Login</a>
+                            </div>
+                        </nav>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bottomAlign">
+                        <div id="menuContainer">
+                            <ul>
+                                <li class="mainMenuContainer">
+                                    <div>Home</div>
+                                    <ul class="subMenuContainer">
+                                        <li><a href="#">Login</a> </li>
+                                        <li><a href="#">Settings</a> </li>
+                                        <li><a href="#">My Account</a> </li>
+                                    </ul>
+                                </li>
+                                <li class="mainMenuContainer">
+                                    <div>Project</div>
+                                    <ul class="subMenuContainer">
+                                        <li><a href="#">Add New</a> </li>
+                                        <li><a href="#">Modify</a> </li>
+                                        <li><a href="#">Delete</a> </li>
+                                    </ul>
+                                </li>
+                                <li class="mainMenuContainer">
+                                    <div>Software</div>
+                                    <ul class="subMenuContainer">
+                                        <li><a href="#">License</a> </li>
+                                        <li><a href="#">Request</a> </li>
+                                        <li><a href="#">Installed</a> </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
-                </div>
-                <div class="float-right">
-                    <ul id="social">
-                        <li><a href="http://facebook.com" class="facebook">Facebook</a></li>
-                        <li><a href="http://twitter.com" class="twitter">Twitter</a></li>
-                    </ul>
-                </div>
+    </header>
+    <main>
+        <div id="divMainRegion" class="stretchWidth" 
+             style="position:absolute;left:140px; top:60px;border-style:solid;width:73%; border-width:0px; margin:5px">
+            <div>
+                @RenderBody()
+                <input type="button" name="btnSubmit" value="Submit" style="position:absolute; top:700px" />
             </div>
-        </footer>
-    </body>
+        </div>
+    </main>
+    <aside>
+        <div id="divRightRegion">
+            <button>Ok</button>
+        </div>
+    </aside>
+    <aside>
+        <div id="sideMenuContainer">
+            <div style="height: 20px"></div>
+            <ul>
+                <li class="mainMenuContainer">
+                    <div>Home</div>
+                    <ul class="subMenuContainer">
+                        <li><a href="#">Login</a> </li>
+                        <li><a href="#">Settings</a> </li>
+                        <li><a href="#">My Account</a> </li>
+                    </ul>
+                </li>
+                <li class="mainMenuContainer">
+                    <div>Project</div>
+                    <ul class="subMenuContainer">
+                        <li><a href="#">Add New</a> </li>
+                        <li><a href="#">Modify</a> </li>
+                        <li><a href="#">Delete</a> </li>
+                    </ul>
+                </li>
+                <li class="mainMenuContainer">
+                    <div>Software</div>
+                    <ul class="subMenuContainer">
+                        <li><a href="#">License</a> </li>
+                        <li><a href="#">Request</a> </li>
+                        <li><a href="#">Installed</a> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <footer>
+        <!--<div id="footerRegion" class="stretchWidth fixedPosition footer" style="bottom: 0px">-->
+        <div id="footerRegion">
+            <div class="leftAlign">&#169 IT Project Maintenance System | All Rights Reserved.</div>
+            <div class="rightAlign">
+                <img src="../Images/FooterImages/SocialMedia/facebook.png" alt="Facebook" class="smallImage" />
+                <img src="../Images/FooterImages/SocialMedia/google_plus.png" alt="Google" class="smallImage" />
+                <img src="../Images/FooterImages/SocialMedia/linkedin.png" alt="LinkedIn" class="smallImage" />
+                <img src="../Images/FooterImages/SocialMedia/rss.png" alt="Rss" class="smallImage" />
+                <img src="../Images/FooterImages/SocialMedia/twitter.png" alt="Twitter" class="smallImage" />
+                <img src="../Images/FooterImages/SocialMedia/youtube.png" alt="Youtube" class="smallImage" />
+            </div>
+            <div class="rightAlign">
+                <a href="#">Terms of Service</a> | <a href="#">Privacy</a> | <a href="#">Security</a> | <a href="#">Follow Us on</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
 </html>
